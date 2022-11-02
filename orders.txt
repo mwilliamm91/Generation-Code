@@ -1,0 +1,3 @@
+{"customer_name": "customer 1","customer_address": "8 wellington","customer_phone": "01234567","status": "Preparing"},
+{"customer_name": "customer 2","customer_address": "407 bradford road","customer_phone": "987654321","status": "Preparing"}
+
