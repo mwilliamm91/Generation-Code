@@ -1,27 +1,23 @@
-# import json
 import csv
 # ***********************variables***********************
 products = ["coke","fanta","water"]
 customer_orders = []
-indexed_orders = []
-order_status_list = ["Preparing", "Awaiting Pickup", "Out for Delivery", "Delivered"]
-indexed_order_status = []
+order_status = ["Preparing", "Awaiting Pickup", "Out for Delivery", "Delivered"]
 
 # ******** functions**************
 
 # imports customer orders and appends the orders to customer_orders
 
 def import_orders():
-    
     try:
-        with open("orders.csv", "r") as file:
+        with open("./orders.csv", "r") as file:
             contents = csv.DictReader(file)
             for row in contents:
                 customer_orders.append(row)
-            # return customer_orders
-        
     except FileNotFoundError as fnfe:
         print(f"Error: {fnfe}")
+
+import_orders()
 
 # ***************main app function*****************
 def main_menu_display():
@@ -51,73 +47,59 @@ def display_order_menu():
         5. Remove an order
 ---------------------''')
 
-# adds orders into a list
-def customer_details_input(self):
-    orders =[]
+# adds new orders into a list
+
+new_customer_orders = []
+
+def customer_details_input():
     customer_name = input("Enter the customer's name")
     customer_address = input("Enter the customer's address")
     customer_phone_number = input("Enter the customer's phone number")
       
-    orders.append({"customer_name": customer_name, "customer_address":customer_address, "customer_phone_number": customer_phone_number, "status": "pending"})
-    
-    return orders
-    
+    new_customer_orders.append({"customer_name": customer_name, "customer_address":customer_address, "customer_phone_number": customer_phone_number, "status": "pending"})
+ 
 # writes the orders in a separate file (orders.csv)    
-def writes_orders(self):
-    orders = self.customer_details_input
+def writes_orders(new_orders):
     try:
-        with open("orders.csv", mode="a") as file:
+        with open("./orders.csv", "w") as file:
             fieldnames = ["customer_name", "customer_address", "customer_phone_number", "status"]
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
-            for order in orders:
+            for order in new_orders:
                 writer.writerow(order)
     except IOError:
         print("I/O error")
-   
-def gets_order_list_indexed():
+        
+# displays indexed customer orders
+def indexed_orders():
     for i in range(len(customer_orders)):
-        indexed_orders.append(f"{i}: {customer_orders[i]}")
-    print(indexed_orders)
-
-def gets_order_status_indexed():
-    for i in range(len(order_status_list)):
-        indexed_order_status.append(f"{i}: {order_status_list[i]}")
-    print(indexed_order_status)
+        print(customer_orders.index(i), ":", i)
 
 def changes_order_status(order_index, status_index):
     if order_index in range(len(indexed_orders)):
-        if status_index in range(len(indexed_order_status)):
+        if status_index in range(len(order_status)):
             current_order_status = customer_orders[order_index]['status']
-            customer_orders[order_index]["status"]= order_status_list[status_index]
-            print(f"Order status has been changed from {current_order_status} to {order_status_list[status_index]}\n")
+            customer_orders[order_index]["status"]= order_status[status_index]
+            print(f"Order status has been changed from {current_order_status} to {order_status[status_index]}\n")
             print(customer_orders[order_index])
 
-# def changes_key_value_properties(order_index):
-#     if order_index in range(len(indexed_orders)) and order_index != '':
-#         # property_type = input("Enter the property type to amend e.g. name, address etc.\n")
-#         # property_value = input("Enter the value for the preceding question \n")  
+def changes_key_value_properties(order_index):
+    if order_index in range(len(customer_orders)) and order_index != '':
+         
+        user_input_data = customer_orders[order_index]
         
-#         user_input_data = indexed_orders[order_index]
         
-#         # print(user_input_data)
-#         # print(type(user_input_data))
-        
-#         for key, value in user_input_data.items():
-#             # if key == property_type:
-#             #     orders[order_index][property_type] = property_value
-#             print(key, value)
-#         print(orders)
-#     else:
-#         print("No property has been changed")
+        for key, value in user_input_data.items():
+            print(key, value)
+        print(customer_orders)
+    else:
+        print("No property has been changed")
             
 
 
 
 # *********************welcome message*******************
 print("Welcome to the app \n")
-
-
 
 while True:
     
@@ -188,21 +170,21 @@ while True:
                     pass
                 else:
                     print(f"Orders are shown below: \n{customer_orders}")
-                    print(customer_orders)
                 continue
             elif order_menu_options == 2:
                 customer_details_input()
-                writes_orders() 
+                writes_orders(new_customer_orders) 
                 continue
             elif order_menu_options == 3:
-                gets_order_list_indexed()
+                indexed_orders()
                 order_index_input = int(input("Enter the order index to proceed\n"))
-                gets_order_status_indexed()
+                for i in range(len(order_status)):
+                    print(order_status.index(i), ":", i)
                 order_status_input = int(input("Enter the chosen order status index as displayed above\n"))
                 changes_order_status(order_index_input,order_status_input)               
                 continue
             elif order_menu_options == 4:
-                gets_order_list_indexed()
+                indexed_orders()
                 selected_input = int(input("Enter the chosen order status index as displayed above\n"))
                 changes_key_value_properties(selected_input)
                 continue
