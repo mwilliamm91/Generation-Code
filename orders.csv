@@ -1,4 +1,2 @@
-Customer_name,Customer_address,Customer_phone_number,Status
-Martin,8 Wellington court,289438983,pending
-Lynn,407 Bradford road,2309439043,pending
-Joshua,23 Manchester road,290349043,pending
+Customer_name,Customer_address,Customer_phone_number,Courier,Status,Items
+William,8 Wellington court,3848583,1,Preparing,"0,2,4"
