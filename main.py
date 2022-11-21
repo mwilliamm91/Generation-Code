@@ -6,20 +6,7 @@ all_orders = []
 all_couriers = []
 order_status = ["Preparing", "Awaiting Pickup", "Out for Delivery", "Delivered"]
 
-# ******** functions**************
-
-# imports customer orders and appends the orders to all_orders
-
-def import_orders():
-    try:
-        with open("./orders.csv", "r") as file:
-            contents = csv.DictReader(file)
-            for row in contents:
-                all_orders.append(row)
-    except FileNotFoundError as fnfe:
-        print(f"Error: {fnfe}")
-
-import_orders()
+                       # ******** functions**************
 
 # ***************main app function*****************
 def displays_main_menu():
@@ -33,7 +20,7 @@ def displays_main_menu():
 def displays_product_menu():
     print("""-----PRODUCTS-----
     0. Return to main menu
-    1. View Product list_file
+    1. View all products
     2. Add a new Product
     3. Update Product
     4. Delete Product
@@ -43,7 +30,7 @@ def displays_product_menu():
 def displays_order_menu():
     print('''-----ORDERS-----
     0. Return to main menu
-    1. View Order list_file
+    1. View all orders
     2. Add a new order
     3. Update an order's status
     4. Update an order
@@ -55,7 +42,7 @@ def displays_order_menu():
 def displays_courier_menu():
     print('''------Couriers-------
           0: Return to main menu
-          1: View courier list
+          1: View all couriers 
           2: Add a new courier
           3: Update an existing courier
           4: Delete a courier from the list
@@ -210,33 +197,20 @@ def add_new_product(products):
                     products.remove(product)      
     except IOError:
         print("I/O error")
-
-# *******imports all the products***************
-
-def import_products():
-    products_file = "./products.csv"
-    with open(products_file, "r", newline="") as file:
-        contents = csv.DictReader(file)
-        for content in contents:
-            all_products.append(content)
         
-# invoking function to load products
+# ***********import files (orders, products, couriers) ****************
 
-import_products()
+def import_files(link, container):
+    try:
+        with open(link, "r", newline="") as file:
+            contents = csv.DictReader(file)
+            for content in contents:
+                container.append(content)
+    except FileNotFoundError as fnfe:
+        print(f"Error: {fnfe}")
+        
 
-# *********** imports all couriers********
 
-def import_couriers():
-    couriers_file = "./couriers.csv"
-    with open(couriers_file, "r", newline="") as file:
-        file_contents = csv.DictReader(file)
-        for content in file_contents:
-            all_couriers.append(content)
-            
-# load couriers file
-
-import_couriers()
- 
 # *********************welcome message*******************
 
 print("\n Welcome to the app \n")
@@ -244,6 +218,9 @@ print("\n Welcome to the app \n")
 # ******************Main app section**********************
 
 while True:
+    import_files("./orders.csv", all_orders)
+    import_files("./products.csv", all_products)
+    import_files("./couriers.csv", all_couriers)
     displays_main_menu()
     #  GET user input for main menu option
     start_app_input = int(input("Select input as shown above \n"))
@@ -256,7 +233,7 @@ while True:
         print("quitting the app")
         break
     elif start_app_input == 1:
-    # input selections for the product menu    
+    # input selections for the product menu
         while True: 
             displays_product_menu()  
         
@@ -271,7 +248,6 @@ while True:
                 print(f"\n There are {len(all_products)} products as shown below:\n")
                 for prod in all_products:
                     print(prod)
-                print("\n....returning back to product menu \n")
                 continue
             elif product_menu_options == 2:
                 product_name = input("\nEnter the name of the product to add \n")
