@@ -1,7 +1,7 @@
 from utils import updates_key_value, deletes_item, load_files, save_items, create_indexed_list
-from orders import creates_order, displays_order_menu, display_orders, order_status, updates_order_status, updates_status_csv
-from products import displays_product_menu, add_product
-from couriers import displays_courier_menu, adds_courier
+from file_handlers.orders import creates_order, displays_order_menu, display_orders, order_status, updates_order_status, updates_status_csv
+from file_handlers.products import displays_product_menu, add_product
+from file_handlers.couriers import displays_courier_menu, adds_courier
 
 
 def displays_main_menu():
@@ -17,11 +17,11 @@ def displays_main_menu():
 
 # ******loading all files*************
 all_orders = []
-load_files("./orders.csv", all_orders)
+load_files("../data/orders.csv", all_orders)
 all_products = []
-load_files("./products.csv", all_products)
+load_files("../data/products.csv", all_products)
 all_couriers = []
-load_files("./couriers.csv", all_couriers)
+load_files("../data/couriers.csv", all_couriers)
 
 while True:
     displays_main_menu()
@@ -48,14 +48,15 @@ while True:
                 continue
             elif product_menu_input == 2:
                 added_product = add_product()
-                save_items(added_product, "./products.csv", ["Name", "Price"])
+                save_items(added_product, "../data/products.csv",
+                           ["Name", "Price"])
                 continue
             elif product_menu_input == 3:
                 create_indexed_list(all_products)
                 item_to_update = int(
                     input("\nEnter index of product to update\n"))
                 updates_key_value(item_to_update, all_products,
-                                  "./products.csv", ["Name", "Price"])
+                                  "../data/products.csv", ["Name", "Price"])
                 continue
             elif product_menu_input == 4:
                 print("\n")
@@ -63,7 +64,7 @@ while True:
                 item_to_delete = int(
                     input("\nEnter index of item to delete \n"))
                 deletes_item(item_to_delete, all_products,
-                             "./products.csv", ["Name", "Price"])
+                             "../data/products.csv", ["Name", "Price"])
                 print("Product has been deleted")
                 continue
             else:
@@ -88,7 +89,7 @@ while True:
             elif courier_menu_options == 2:
                 added_courier = adds_courier()
                 print(added_courier)
-                save_items(added_courier, "./couriers.csv",
+                save_items(added_courier, "../data/couriers.csv",
                            ["Name", "Phone_number"])
                 continue
             elif courier_menu_options == 3:
@@ -96,14 +97,14 @@ while True:
                 courier_index_input = int(
                     input("\n Enter the index to update an existing courier \n"))
                 updates_key_value(courier_index_input, all_couriers,
-                                  "./couriers.csv", ["Name", "Phone_number"])
+                                  "../data/couriers.csv", ["Name", "Phone_number"])
                 continue
             elif courier_menu_options == 4:
                 create_indexed_list(all_couriers)
                 courier_index_input = int(
                     input("\n Enter the index to delete an existing courier \n"))
                 deletes_item(courier_index_input, all_couriers,
-                             "./couriers.csv", ["Name", "Phone_number"])
+                             "../data/couriers.csv", ["Name", "Phone_number"])
                 print("Courier has been deleted")
                 continue
             else:
@@ -123,8 +124,8 @@ while True:
                 continue
             elif order_menu_options == 2:
                 new_orders = creates_order(all_products, all_couriers)
-                save_items(new_orders, "./orders.csv", ["Customer_name", "Customer_address",
-                                                        "Customer_phone_number", "Courier", "Status", "Items"])
+                save_items(new_orders, "../data/orders.csv", ["Customer_name", "Customer_address",
+                                                              "Customer_phone_number", "Courier", "Status", "Items"])
                 continue
             elif order_menu_options == 3:
                 create_indexed_list(all_orders)
@@ -141,14 +142,14 @@ while True:
             elif order_menu_options == 4:
                 create_indexed_list(all_orders)
                 selected_input = int(input("\nEnter the index to update \n"))
-                updates_key_value(selected_input, all_orders, "./orders.csv", ["Customer_name",
-                                                                               "Customer_address", "Customer_phone_number", "Courier", "Status", "Items"])
+                updates_key_value(selected_input, all_orders, "../data/orders.csv", ["Customer_name",
+                                                                                     "Customer_address", "Customer_phone_number", "Courier", "Status", "Items"])
                 continue
             elif order_menu_options == 5:
                 create_indexed_list(all_orders)
                 selected_input = int(input("\nEnter the index to delete\n"))
-                deletes_item(selected_input, all_orders, "./orders.csv", ["Customer_name",
-                                                                          "Customer_address", "Customer_phone_number", "Courier", "Status", "Items"])
+                deletes_item(selected_input, all_orders, "../data/orders.csv", ["Customer_name",
+                                                                                "Customer_address", "Customer_phone_number", "Courier", "Status", "Items"])
                 continue
             else:
                 print("Enter a valid input")

@@ -76,6 +76,7 @@ def updates_order_status(order_index, status_index, list_file):
 
 
 def updates_status_csv(all_orders):
+    """ updates the csv file - changes(order status)"""
     try:
         with open("./orders.csv", "w", newline="", encoding="utf8") as file:
             fieldnames = ["Customer_name", "Customer_address",
