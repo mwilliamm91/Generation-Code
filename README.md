@@ -24,9 +24,9 @@ file tree
 |-Data-- -couriers.csv
 |         -orders.csv
 |         -products.csv
-|-src--  |-db -database.py
-|        |-file_handler - couriers.py
-|                      - orders.py
-|                      - products.py
-|-main.py
-|-utils.py
+|-src--  |-db-- -database.py
+         |-file_handler-- -couriers.py
+         |                -orders.py
+         |                -products.py
+         |-main.py
+         |-utils.py
