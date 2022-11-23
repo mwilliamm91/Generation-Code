@@ -77,6 +77,7 @@ while True:
 
             courier_menu_options = int(
                 input("Select an input as shown above \n"))
+            # input selections for the courier menu
             if courier_menu_options == 0:
                 print("....returning to main menu \n")
                 break
@@ -115,6 +116,7 @@ while True:
             displays_order_menu()
 
             order_menu_options = int(input("Select input as shown above \n"))
+            # input selections for the order menu
 
             if order_menu_options == 0:
                 print("....returning to main menu \n")
