@@ -6,7 +6,7 @@ Client Requirements:
 
 Client requested an app that logs and keeps track of the orders.
 The app should contain a collection of products and couriers
-All data handled in the app should persisted on exited and loaded when app is started
+All data handled in the app should persisted on exit and loaded when app is started
 The app should create, update and delete orders to a csv file as well as a database
 The app should be tested prior to handing over as well receive regular software updates
 
